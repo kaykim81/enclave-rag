@@ -12,13 +12,13 @@ the compose skeleton for the off-the-shelf services exists.
 
 Two documents are the source of truth and must stay authoritative — read them before acting:
 
-- **[PLAN.md](PLAN.md)** — the design: hardware assessment, chosen stack, architecture,
+- **[MASTER-PLAN.md](MASTER-PLAN.md)** — the design: hardware assessment, chosen stack, architecture,
   build phases, performance expectations, GPU/RAM upgrade analysis. The "why" behind every choice.
 - **[PROGRESS.md](PROGRESS.md)** — the task tracker. Every task has a `_Verify:_` line; a box is
   checked **only** when that verification passes, and a phase is "Done" only when its gate is met.
   This is where you find current state and what to do next. **Keep it updated as work lands.**
 
-`R360-hw-spec.txt` is the raw `lshw` dump backing PLAN.md §1 (the deploy target's hardware).
+`R360-hw-spec.txt` is the raw `lshw` dump backing MASTER-PLAN.md §1 (the deploy target's hardware).
 
 ## The two-environment model (most important thing to understand)
 
@@ -85,4 +85,4 @@ Conventions to follow:
   only then check the box. Don't mark a phase Done until its gate criteria pass.
 - **This is not yet a git repo** (task 0.7 initializes it). Don't assume git history exists.
 - Record irreversible/expensive choices in PROGRESS.md's **Cross-phase decisions log** (model choice,
-  reranker kept?, RAM upgrade, GPU procurement) so PLAN.md §7's upgrade path stays honest.
+  reranker kept?, RAM upgrade, GPU procurement) so MASTER-PLAN.md §7's upgrade path stays honest.

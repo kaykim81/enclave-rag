@@ -1,6 +1,6 @@
 # Private RAG System — Progress Tracker
 
-Task breakdown of [PLAN.md](PLAN.md). Check a box only when its **verification** passes.
+Task breakdown of [MASTER-PLAN.md](MASTER-PLAN.md). Check a box only when its **verification** passes.
 Mark a phase "Done" when every task in it is checked and its gate criteria are met.
 
 Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[!]` blocked
@@ -13,7 +13,7 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[!]` blocked
 
 ## Environments
 
-Two machines. **Develop here, deploy to the R360.** PLAN.md's hardware assessment
+Two machines. **Develop here, deploy to the R360.** MASTER-PLAN.md's hardware assessment
 and RAM budget describe the **deploy target**, not this dev host.
 
 | | **Dev host (this box)** | **Deploy target (R360)** |
