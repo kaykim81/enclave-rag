@@ -1,8 +1,14 @@
-# Private RAG — base compose skeleton (Phase 0.5)
+# Private RAG — base compose skeleton (Phase 0.5–0.6)
 #
-# Dev defaults come from .env (this VM: 4 vCPU / 15GB / no swap).
-# The prod overlay (.env.prod) is added in task 0.6. The two environments differ
-# ONLY in env values / mem_limits / model — never in service topology.
+# ONE compose file, two environments selected by env-file overlay:
+#   dev  (this VM: 4 vCPU / 15GB / no swap):  docker compose config
+#         (auto-loads .env — 4B model, 4 threads, mem_limits sized for 15GB)
+#   prod (R360: 8C/16T / 32GB / LVM):        docker compose --env-file .env.prod config
+#         (8B model, 8 threads, mem_limits sized for 32GB)
+#
+# The two environments differ ONLY in env values (model, embedder, threads,
+# volume source, mem_limits) — NEVER in service topology. Every difference is a
+# ${VAR} below, fed by .env or .env.prod; the service graph is identical for both.
 #
 # Data lives on the host at ${DATA_DIR:-/data/rag} (plain dir on dev, LVM mount on R360).
 # App services (rag-api, ingestion-worker) are stubbed below and activated in Phase 3.

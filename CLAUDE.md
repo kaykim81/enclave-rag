@@ -66,8 +66,8 @@ snapshots/ open-webui/`. The Qdrant index is disposable (rebuildable from corpus
 There is no build/lint/test tooling yet (app code doesn't exist). Current work is compose + infra:
 
 ```bash
-docker compose config                 # validate the compose file + .env substitution
-docker compose --profile dev config   # (after task 0.6) validate the dev profile
+docker compose config                 # validate dev (auto-loads .env)
+docker compose --env-file .env.prod config   # validate the prod overlay (R360)
 docker compose up -d                   # bring up ollama/qdrant/open-webui
 docker compose ps                      # service status
 docker compose logs -f <service>       # tail logs
