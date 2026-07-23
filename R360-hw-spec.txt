@@ -1,0 +1,76 @@
+H/W path            Device      Class          Description
+==========================================================
+                                system         PowerEdge R360 (SKU=0C45;ModelName=PowerEdge R360)
+/0                              bus            03X40C
+/0/0                            memory         64KiB BIOS
+/0/400                          processor      Intel(R) Xeon(R) E E-2468
+/0/400/700                      memory         640KiB L1 cache
+/0/400/701                      memory         16MiB L2 cache
+/0/400/702                      memory         24MiB L3 cache
+/0/1000                         memory         32GiB System Memory
+/0/1000/0                       memory         16GiB DIMM Synchronous Unbuffered (Unregistered) 5600 MHz (0.2 ns)
+/0/1000/1                       memory         16GiB DIMM Synchronous Unbuffered (Unregistered) 5600 MHz (0.2 ns)
+/0/1000/2                       memory         [empty]
+/0/1000/3                       memory         [empty]
+/0/100                          bridge         Intel Corporation
+/0/100/1                        bridge         Intel Corporation
+/0/100/1/0          p1p1        network        NetXtreme BCM5719 Gigabit Ethernet PCIe
+/0/100/1/0.1        p1p2        network        NetXtreme BCM5719 Gigabit Ethernet PCIe
+/0/100/1/0.2        p1p3        network        NetXtreme BCM5719 Gigabit Ethernet PCIe
+/0/100/1/0.3        p1p4        network        NetXtreme BCM5719 Gigabit Ethernet PCIe
+/0/100/1.1                      bridge         Intel Corporation
+/0/100/1.1/0        p2p1        network        NetXtreme BCM5719 Gigabit Ethernet PCIe
+/0/100/1.1/0.1      p2p2        network        NetXtreme BCM5719 Gigabit Ethernet PCIe
+/0/100/1.1/0.2      p2p3        network        NetXtreme BCM5719 Gigabit Ethernet PCIe
+/0/100/1.1/0.3      p2p4        network        NetXtreme BCM5719 Gigabit Ethernet PCIe
+/0/100/6                        bridge         Intel Corporation
+/0/100/6/0          scsi0       storage        MegaRAID 12GSAS/PCIe Secure SAS39xx
+/0/100/6/0/2.0.0    /dev/sda    disk           1200GB ST1200MM0099
+/0/100/6/0/2.0.0/1  /dev/sda1   volume         599MiB Windows FAT volume
+/0/100/6/0/2.0.0/2  /dev/sda2   volume         1000MiB EXT4 volume
+/0/100/6/0/2.0.0/3  /dev/sda3   volume         1116GiB LVM Physical Volume
+/0/100/6/0/2.1.0    /dev/sdb    disk           1200GB ST1200MM0099
+/0/100/6/0/2.1.0/1  /dev/sdb1   volume         1MiB Linux filesystem partition
+/0/100/6/0/2.1.0/2  /dev/sdb2   volume         1GiB EXT4 volume
+/0/100/6/0/2.1.0/3  /dev/sdb3   volume         1116GiB Linux LVM Physical Volume partition
+/0/100/6/0/2.2.0    /dev/sdc    disk           1200GB ST1200MM0088
+/0/100/6/0/2.2.0/1  /dev/sdc1   volume         1MiB Linux filesystem partition
+/0/100/6/0/2.2.0/2  /dev/sdc2   volume         1GiB EXT4 volume
+/0/100/6/0/2.2.0/3  /dev/sdc3   volume         1116GiB Linux LVM Physical Volume partition
+/0/100/6/0/2.3.0    /dev/sdd    disk           1200GB ST1200MM0088
+/0/100/6/0/2.3.0/1  /dev/sdd1   volume         1MiB Linux filesystem partition
+/0/100/6/0/2.3.0/2  /dev/sdd2   volume         1GiB EXT4 volume
+/0/100/6/0/2.3.0/3  /dev/sdd3   volume         1116GiB Linux LVM Physical Volume partition
+/0/100/6/0/2.4.0    /dev/sde    disk           1200GB ST1200MM0099
+/0/100/6/0/2.4.0/1              volume         1MiB Linux filesystem partition
+/0/100/6/0/2.4.0/2              volume         1GiB EXT4 volume
+/0/100/6/0/2.4.0/3              volume         1116GiB Linux LVM Physical Volume partition
+/0/100/14                       bus            Intel Corporation
+/0/100/14/0         usb1        bus            xHCI Host Controller
+/0/100/14/0/2                   input          IO Module
+/0/100/14/0/3                   bus            Dell Integrated Hub
+/0/100/14/0/3/1                 bus            Dell Integrated Hub
+/0/100/14/0/3/4                 bus            Dell Integrated Hub
+/0/100/14/1         usb2        bus            xHCI Host Controller
+/0/100/14.2                     memory         RAM memory
+/0/100/16                       communication  Intel Corporation
+/0/100/17                       storage        Intel Corporation
+/0/100/1c                       bridge         Intel Corporation
+/0/100/1c.4                     bridge         Intel Corporation
+/0/100/1c.4/0                   bridge         PCI Express Bridge
+/0/100/1c.4/0/0                 display        Integrated Matrox G200eW3 Graphics Controller
+/0/100/1c.6                     bridge         Intel Corporation
+/0/100/1c.6/0       em1         network        NetXtreme BCM5720 2-port Gigabit Ethernet PCIe
+/0/100/1c.6/0.1     em2         network        NetXtreme BCM5720 2-port Gigabit Ethernet PCIe
+/0/100/1f                       bridge         Intel Corporation
+/0/100/1f.4                     bus            Intel Corporation
+/0/100/1f.5                     bus            Intel Corporation
+/1                              power          03THTTA01
+/2                              power          03THTTA01
+/3                  br00        network        Ethernet interface
+/4                  br32        network        Ethernet interface
+/5                  br33        network        Ethernet interface
+/6                  br36        network        Ethernet interface
+/7                  br37        network        Ethernet interface
+/8                  virbr0-nic  network        Ethernet interface
+/9                  virbr0      network        Ethernet interface

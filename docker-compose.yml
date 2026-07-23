@@ -1,0 +1,100 @@
+# Private RAG — base compose skeleton (Phase 0.5)
+#
+# Dev defaults come from .env (this VM: 4 vCPU / 15GB / no swap).
+# The prod overlay (.env.prod) is added in task 0.6. The two environments differ
+# ONLY in env values / mem_limits / model — never in service topology.
+#
+# Data lives on the host at ${DATA_DIR:-/data/rag} (plain dir on dev, LVM mount on R360).
+# App services (rag-api, ingestion-worker) are stubbed below and activated in Phase 3.
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"   # log rotation: cap each container's logs
+    max-file: "3"
+
+networks:
+  rag-net:
+    driver: bridge
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: rag-ollama
+    restart: unless-stopped
+    networks: [rag-net]
+    ports:
+      - "127.0.0.1:11434:11434"   # localhost-only; external isolation hardened in Phase 4
+    volumes:
+      - ${DATA_DIR:-/data/rag}/models:/root/.ollama
+    environment:
+      OLLAMA_KEEP_ALIVE: "-1"                          # pin model in RAM (no reload)
+      OLLAMA_NUM_PARALLEL: "1"                          # one generation at a time on CPU
+      OLLAMA_NUM_THREAD: "${OLLAMA_NUM_THREAD:-4}"      # dev=4 vCPUs; prod=8 (via .env.prod)
+    mem_limit: ${OLLAMA_MEM_LIMIT:-6g}
+    logging: *default-logging
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: rag-qdrant
+    restart: unless-stopped
+    networks: [rag-net]
+    ports:
+      - "127.0.0.1:6333:6333"     # REST
+      - "127.0.0.1:6334:6334"     # gRPC
+    volumes:
+      - ${DATA_DIR:-/data/rag}/qdrant:/qdrant/storage
+      - ${DATA_DIR:-/data/rag}/snapshots:/qdrant/snapshots
+    mem_limit: ${QDRANT_MEM_LIMIT:-2g}
+    logging: *default-logging
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: rag-open-webui
+    restart: unless-stopped
+    networks: [rag-net]
+    depends_on: [ollama]
+    ports:
+      - "127.0.0.1:3000:8080"     # dev: localhost only; prod exposes via TLS reverse proxy (Phase 7)
+    volumes:
+      - ${DATA_DIR:-/data/rag}/open-webui:/app/backend/data
+    environment:
+      OLLAMA_BASE_URL: "http://ollama:11434"
+      # Point the UI at the RAG API (OpenAI-compatible) in Phase 4:
+      # OPENAI_API_BASE_URL: "http://rag-api:8000/v1"
+    mem_limit: ${WEBUI_MEM_LIMIT:-1g}
+    logging: *default-logging
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # App services — uncommented in Phase 3 (build contexts created there).
+  # Topology and memory budget are declared now so the profile split stays honest.
+  # ──────────────────────────────────────────────────────────────────────────
+  # rag-api:
+  #   build: ./services/rag-api
+  #   container_name: rag-api
+  #   restart: unless-stopped
+  #   networks: [rag-net]
+  #   ports: ["127.0.0.1:8000:8000"]
+  #   environment:
+  #     OLLAMA_BASE_URL: "http://ollama:11434"
+  #     QDRANT_URL: "http://qdrant:6333"
+  #     GEN_MODEL: "${GEN_MODEL:-qwen3:4b}"
+  #     EMBED_MODEL: "${EMBED_MODEL:-nomic-embed-text}"
+  #   depends_on: [ollama, qdrant]
+  #   mem_limit: ${RAGAPI_MEM_LIMIT:-1500m}
+  #   logging: *default-logging
+  #
+  # ingestion-worker:
+  #   build: ./services/ingestion
+  #   container_name: rag-ingestion
+  #   restart: unless-stopped
+  #   networks: [rag-net]
+  #   volumes:
+  #     - ${DATA_DIR:-/data/rag}/corpus:/corpus
+  #   environment:
+  #     QDRANT_URL: "http://qdrant:6333"
+  #     OLLAMA_BASE_URL: "http://ollama:11434"
+  #     EMBED_MODEL: "${EMBED_MODEL:-nomic-embed-text}"
+  #   depends_on: [qdrant, ollama]
+  #   mem_limit: ${INGEST_MEM_LIMIT:-1500m}
+  #   logging: *default-logging
