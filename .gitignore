@@ -1,0 +1,22 @@
+# Host data lives at ${DATA_DIR:-/data/rag}, outside the repo — never committed.
+# .env and .env.prod ARE tracked: they hold non-secret config knobs, not credentials.
+
+# Python (rag-api / ingestion-worker land in Phase 3)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Editor / OS cruft
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Local-only env overrides (if ever used)
+.env.local
+*.env.local

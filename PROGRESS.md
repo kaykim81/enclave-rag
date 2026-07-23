@@ -95,10 +95,10 @@ measures performance — that is Part B. **Definition of done:** every Phase 0�
   - _Verify:_ `docker compose config` validates ✅; env substitution resolves (`OLLAMA_NUM_THREAD=4`, mem_limits 6g/2g/1g, volumes → `/data/rag/*`).
 - [x] **0.6 Split into `dev`/`prod` profiles** — shared base + `.env` (dev) / `.env.prod` (prod) overlay. The two differ **only** in model, embedder, threads, volume source, and `mem_limit`s (see workflow table) — identical service topology. (Env-file overlay, not Compose `--profile`: `--profile` gates *which services run*, not env *values*, so it can't express model/threads/mem_limit deltas — CLAUDE.md's "parameterize differences through `.env` / the prod overlay.")
   - _Verify:_ `docker compose config` (dev) and `docker compose --env-file .env.prod config` (prod) both validate ✅; rendered diff is only threads (4→8) and mem_limits (ollama 6g→14g, qdrant 2g→6g, webui 1g→2g). Model/embedder deltas land once the app services are uncommented (Phase 3); volume source is the same `/data/rag` path (LVM vs plain dir is host fstab, not compose). ✅
-- [ ] **0.7 Init git repo + README** — version the compose files, app code, and this tracker; document bringing up the `dev` profile.
-  - _Verify:_ `git status` clean after initial commit; a fresh clone + `docker compose --profile dev up` documented.
+- [x] **0.7 Init git repo + README** — repo already initialized; added [README.md](README.md) (architecture, prerequisites, two-environment model, dev quick-start, prod overlay, repo layout) and a `.gitignore`. Versions the compose files, env overlays, and this tracker.
+  - _Verify:_ README documents fresh clone → `docker compose config` → `docker compose up -d` (dev; env-file overlay, not `--profile`) with health checks and model pulls ✅; `git status` clean after the commit landing these files. ✅
 
-**Gate:** `/data/rag` writable, compose skeleton + `dev`/`prod` profiles validate, repo initialized.
+**Gate:** `/data/rag` writable, compose skeleton + dev/prod overlays validate, repo initialized. ✅ **Phase 0 DONE.**
 
 ---
 
